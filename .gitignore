@@ -216,3 +216,44 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Raw sequencing data
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+
+# Alignment files
+*.bam
+*.bai
+*.sam
+*.cram
+
+# Large NovaScope output directories
+output/
+output_*/
+outputs/
+
+# Reference genomes
+ref/
+reference/
+genome_index/
+
+# Generated whitelist files
+whitelist_*_RC.txt
+
+# Large intermediate files
+*.sbcds.sorted.tsv.gz
+
+# Local data directories
+data/
+5th_data/
+
+# Temporary files
+*.tmp
+*.log
+
+# Windows
+Thumbs.db
+Desktop.ini
