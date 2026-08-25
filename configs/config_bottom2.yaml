@@ -1,0 +1,111 @@
+## NovaScope job configuration - Bottom surface, lane 2 only
+
+input:
+  flowcell: "P4_run_Bottom"
+  chip: "5th_data_chip_Bottom"
+  species: "human"
+
+  lane: 2
+
+  seq1st:
+    id: "L1"
+    fastq: "/data/5th_data/matrix_121324_p4_2nM/test_S1_R1_001.fastq.gz"
+    layout: "/data/5th_data/layout_bottom.tsv"
+
+  seq2nd:
+    - id: "bottom_32_S4"
+      fastq_R1: "/data/5th_data/transcriptome-uncut/bottom_32_S4_R1_001.fastq.gz"
+      fastq_R2: "/data/5th_data/transcriptome-uncut/bottom_32_S4_R2_001.fastq.gz"
+
+output: "/data/output_bottom2"
+
+whitelist: "/data/whitelist_2000_lane2_RC.txt"
+
+request:
+  - sge-per-run
+
+env_yml: "/app/novascope/info/config_env_docker.yaml"
+
+upstream:
+  stdfastq:
+    seq1st: True
+    seq2nd: True
+
+  fastq2sbcd:
+    format: DraI32
+
+  sbcd_layout:
+    tiles:
+      - "1101,1201"
+      - "1401,1501"
+    colshift: -0.000010
+
+  sbcd2chip:
+    gap_row: 0.051700
+    gap_col: 0.039637
+    dup_maxnum: 1
+    dup_maxdist: 1
+
+  smatch:
+    skip_sbcd: 0
+    match_len: 27
+
+  align:
+    min_match_len: 30
+    min_match_frac: 0.66
+    len_sbcd: 32
+    len_umi: 9
+    len_r2: 101
+    exist_action: overwrite
+    resource:
+      assign_type: stdin
+      stdin:
+        partition: standard
+        threads: 10
+        memory: 70000m
+
+  visualization:
+    drawxy:
+      coord_per_pixel: 5000
+      intensity_per_obs: 50
+      icol_x: 3
+      icol_y: 4
+    drawsge:
+      action: True
+      genes:
+        - red: nonMT
+          green: Unspliced
+          blue: MT
+      coord_per_pixel: 5000
+      auto_adjust: false
+      adjust_quantile: 0.99
+
+downstream:
+  mu_scale: 1000
+
+  gene_filter:
+    keep_gene_type: "protein_coding|lncRNA|pseudogene|miRNA"
+    rm_gene_regex: "^Gm\\d+|^mt-|^MT-"
+    min_ct_per_feature: 1
+
+  polygon_density_filter:
+    radius: 15
+    hex_n_move: 1
+    polygon_min_size: 500
+    quartile: 2
+
+  segment:
+    hex_n_move: 1
+    precision: 2
+    10x:
+      min_pixel_per_unit: 10
+      char:
+        - solo_feature: gn
+          hexagon_width: 24
+          quality_control: FALSE
+    ficture:
+      min_density: 0.3
+      char:
+        - solo_feature: gn
+          hexagon_width: 24
+          quality_control: TRUE
