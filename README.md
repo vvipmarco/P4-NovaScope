@@ -50,8 +50,10 @@ P4-NovaScope/
 │   ├── make_whitelist_all_lanes.py
 │   └── rc_barcode.py
 ├── configs/
-│   ├── config_top1.yaml
-│   └── config_bottom2.yaml
+│   ├── config_1000L1_top.yaml
+│   └── config_1000L2_top.yaml
+│   └── config_2000L1_bottom.yaml
+│   └── config_2000L2_bottom.yaml
 ├── docker/
 │   └── Dockerfile
 └── docs/
