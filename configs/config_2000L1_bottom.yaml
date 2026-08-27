@@ -1,10 +1,9 @@
-## NovaScope job configuration - Bottom surface, lane 2 only
+## 조합 6: 격자 2000_lane1 × 전사체 bottom_32
 
 input:
-  flowcell: "P4_run_Bottom"
-  chip: "5th_data_chip_Bottom"
+  flowcell: "P4_run_2000L1"
+  chip: "5th_data_chip_2000L1"
   species: "human"
-
   lane: 2
 
   seq1st:
@@ -17,9 +16,9 @@ input:
       fastq_R1: "/data/5th_data/transcriptome-uncut/bottom_32_S4_R1_001.fastq.gz"
       fastq_R2: "/data/5th_data/transcriptome-uncut/bottom_32_S4_R2_001.fastq.gz"
 
-output: "/data/output_bottom2"
+output: "/data/output_2000L1_bottom"
 
-whitelist: "/data/whitelist_2000_lane2_RC.txt"
+whitelist: "/data/whitelist_2000_lane1_RC.txt"
 
 request:
   - sge-per-run
@@ -53,7 +52,7 @@ upstream:
   align:
     min_match_len: 30
     min_match_frac: 0.66
-    len_sbcd: 32
+    len_sbcd: 27
     len_umi: 9
     len_r2: 101
     exist_action: overwrite
@@ -82,18 +81,15 @@ upstream:
 
 downstream:
   mu_scale: 1000
-
   gene_filter:
     keep_gene_type: "protein_coding|lncRNA|pseudogene|miRNA"
     rm_gene_regex: "^Gm\\d+|^mt-|^MT-"
     min_ct_per_feature: 1
-
   polygon_density_filter:
     radius: 15
     hex_n_move: 1
     polygon_min_size: 500
     quartile: 2
-
   segment:
     hex_n_move: 1
     precision: 2
