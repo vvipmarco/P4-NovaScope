@@ -24,7 +24,7 @@ For this analysis, the P4 flowcell was divided into four spatial regions:
 
 The top surface corresponds to the 1000-series regions, and the bottom surface corresponds to the 2000-series regions.
 
-Each region consists of an approximately 6 × 16–17 tile arrangement.
+The sequencing tile IDs were grouped by surface and lane for construction of the barcode-coordinate maps.
 
 ## Barcode Processing
 
